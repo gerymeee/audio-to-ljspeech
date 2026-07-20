@@ -46,7 +46,7 @@ pip install torch torchvision torchaudio --index-url [https://download.pytorch.o
    ```
 
 ### Output
-The script will automatically generate a `bloop_dataset` folder containing:
+The script will automatically generate a `audio-dataset` folder containing:
 * A `wavs/` folder populated with perfectly formatted, numbered audio slices.
 * A `metadata.csv` file linking each audio file to its transcribed text. This file consists of one record per line, delimited by the pipe character.
 
