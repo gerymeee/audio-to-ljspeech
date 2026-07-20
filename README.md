@@ -38,8 +38,8 @@ pip install torch torchvision torchaudio --index-url [https://download.pytorch.o
 ## 🚀 Usage
 
 1. Clone the repository to your local machine.
-2. Create a folder named `raw_audio` in the same directory as the script.
-3. Place your long `.mp3` or `.wav` files inside the `raw_audio` folder.
+2. Create a folder named `raw-audio` in the same directory as the script.
+3. Place your long `.mp3` or `.wav` files inside the `raw-audio` folder.
 4. Run the script:
    ```bash
    python build_dataset.py
