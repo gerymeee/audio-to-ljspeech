@@ -44,7 +44,7 @@ pip install torch torchvision torchaudio --index-url [https://download.pytorch.o
 3. Place your long `.mp3` or `.wav` files inside the `raw-audio` folder.
 4. Run the generation script:
    ```bash
-   python build_dataset.py
+   python build-dataset.py
    ```
 
 **Output:**
