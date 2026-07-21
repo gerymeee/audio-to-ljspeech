@@ -10,6 +10,7 @@ This script uses `librosa` for highly accurate, energy-based silence detection a
 * **Auto-Slicing:** Intelligently splits massive audio blocks into short, sentence-level clips based on decibel thresholds.
 * **Auto-Formatting:** Forces all output audio into the strict 16-bit, 22050 Hz Mono `.wav` format required by Piper.
 * **Auto-Transcription:** Uses Whisper to transcribe every slice and compile the `metadata.csv`.
+* **Dataset Validation:** Includes a dedicated script to verify that your `metadata.csv` perfectly matches the contents of your `wavs/` folder.
 * **Python 3.13+ Safe:** Uses `librosa` and `soundfile` instead of deprecated legacy audio modules.
 
 ## 🛠️ Prerequisites
@@ -37,18 +38,28 @@ pip install torch torchvision torchaudio --index-url [https://download.pytorch.o
 
 ## 🚀 Usage
 
+### 1. Build the Dataset
 1. Clone the repository to your local machine.
-2. Create a folder named `raw_audio` in the same directory as the script.
-3. Place your long `.mp3` or `.wav` files inside the `raw_audio` folder.
-4. Run the script:
+2. Create a folder named `raw-audio` in the same directory as the script.
+3. Place your long `.mp3` or `.wav` files inside the `raw-audio` folder.
+4. Run the generation script:
    ```bash
    python build_dataset.py
    ```
 
-### Output
-The script will automatically generate a `bloop_dataset` folder containing:
+**Output:**
+The script will automatically generate an `audio-dataset` folder containing:
 * A `wavs/` folder populated with perfectly formatted, numbered audio slices.
 * A `metadata.csv` file linking each audio file to its transcribed text. This file consists of one record per line, delimited by the pipe character.
+
+### 2. Validate the Dataset
+After generating your dataset, you should manually review `metadata.csv` and delete any broken audio files and their corresponding text lines. 
+
+Once you are done pruning, run the validation script to ensure no files are missing or orphaned:
+```bash
+python validate-dataset.py
+```
+The script will scan the `audio-dataset` folder and output a report letting you know if your CSV matches your audio files perfectly.
 
 ## ⚠️ Troubleshooting
 
@@ -59,5 +70,3 @@ Always view and prune your `metadata.csv` using a plain text editor like **Notep
 
 **Whisper cut off a word / hallucinated a sentence.**
 No AI is perfect. You should always manually review the `metadata.csv` and listen to the corresponding `.wav` files. If a sentence is cut midway or the audio contains background noise, delete the `.wav` file **and** delete its corresponding line from the `metadata.csv`. It is better to have a slightly smaller dataset than to train your model on broken audio.
-
-```
